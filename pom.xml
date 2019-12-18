@@ -19,6 +19,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<artie.sensor.common.version>0.0.3-SNAPSHOT</artie.sensor.common.version>
+		<webcam-capture.version>0.3.12</webcam-capture.version>
 	</properties>
 	
 	<repositories>
@@ -28,6 +29,10 @@
           <releases><enabled>true</enabled></releases>
           <snapshots><enabled>true</enabled></snapshots>
         </repository>
+        <repository>
+			<id>Sonatype OSS Snapshot Repository</id>
+			<url>http://oss.sonatype.org/content/repositories/snapshots</url>
+		</repository>
         <repository>
       		<id>artie-snapshots</id>
       		<name>ARTIE repository</name>
@@ -54,6 +59,11 @@
 		  <artifactId>common</artifactId>
 		  <version>${artie.sensor.common.version}</version>
 		</dependency>
+		<dependency>
+        	<groupId>com.github.sarxos</groupId>
+        	<artifactId>webcam-capture</artifactId>
+        	<version>${webcam-capture.version}</version>
+    	</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

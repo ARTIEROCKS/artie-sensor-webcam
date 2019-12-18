@@ -12,60 +12,60 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import artie.sensor.common.dto.SensorObject;
 import artie.sensor.common.interfaces.ArtieClientSensor;
-import artie.sensor.webcam.services.SampleService;
+import artie.sensor.webcam.services.WebcamService;
 
 @Controller
-public class SampleController implements ArtieClientSensor {
+public class WebcamController implements ArtieClientSensor {
 
 	@Autowired
-	private SampleService sampleService;
+	private WebcamService webcamService;
 	
 
 	@GetMapping("/artie/sensor/webcam/getName")
 	@ResponseBody
 	public String getName(){
-		return this.sampleService.getName();
+		return this.webcamService.getName();
 	}
 	
 	@GetMapping("/artie/sensor/webcam/getVersion")
 	@ResponseBody
 	public String getVersion(){
-		return this.sampleService.getVersion();
+		return this.webcamService.getVersion();
 	}
 	
 	@GetMapping("/artie/sensor/webcam/getAuthor")
 	@ResponseBody
 	public String getAuthor(){
-		return this.sampleService.getAuthor();
+		return this.webcamService.getAuthor();
 	}
 	
 	@GetMapping("/artie/sensor/webcam/getConfiguration")
 	@ResponseBody
 	public Map<String, String> getConfiguration(){
-		return this.sampleService.getConfiguration();
+		return this.webcamService.getConfiguration();
 	}
 	
 	@PostMapping(path = "/artie/sensor/webcam/configuration", consumes = "application/json")
 	public void setConfiguration(@RequestBody Map<String, String> configuration){
-		this.sampleService.setConfiguration(configuration);
+		this.webcamService.setConfiguration(configuration);
 	}
 
 	@GetMapping("/artie/sensor/webcam/start")
 	@ResponseBody
 	public void start(){
-		this.sampleService.start();
+		this.webcamService.start();
 	}
 	
 	@GetMapping("/artie/sensor/webcam/stop")
 	@ResponseBody
 	public void stop(){
-		this.sampleService.stop();
+		this.webcamService.stop();
 	}
 	
 	@GetMapping("/artie/sensor/webcam/getSensorData")
 	@ResponseBody
 	public List<SensorObject> getSensorData(){
-		return this.sampleService.getSensorData();
+		return this.webcamService.getSensorData();
 	}
 	
 }
