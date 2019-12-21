@@ -1,6 +1,8 @@
 package artie.sensor.webcam.services;
 
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -43,7 +45,8 @@ public class WebcamService extends ArtieClientSensorImpl {
 	 * @return
 	 */
 	public List<SensorObject> getSensorData(){
-		List<SensorObject> sensorData = this.getSensorData();
+		List<SensorObject> sensorData = new ArrayList<SensorObject>();
+		Collections.copy(sensorData, this.sensorData);
 		this.sensorData.clear();
 		return sensorData;
 	}
