@@ -43,7 +43,9 @@ public class WebcamService extends ArtieClientSensorImpl {
 	 * @return
 	 */
 	public List<SensorObject> getSensorData(){
-		return this.getSensorData();
+		List<SensorObject> sensorData = this.getSensorData();
+		this.sensorData.clear();
+		return sensorData;
 	}
 	
 	@Override
