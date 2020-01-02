@@ -45,10 +45,17 @@ public class WebcamController implements ArtieClientSensor {
 		return this.webcamService.getConfiguration();
 	}
 	
-	@PostMapping(path = "/artie/sensor/webcam/configuration", consumes = "application/json")
-	public void setConfiguration(@RequestBody Map<String, String> configuration){
+	@PostMapping(path = "/artie/sensor/webcam/configuration")
+	@ResponseBody
+	public void setConfiguration(@RequestBody String configuration){
 		this.webcamService.setConfiguration(configuration);
 	}
+	
+	@Override
+	public void setConfiguration(Map<String, String> configuration) {
+		this.webcamService.setConfiguration(configuration);	
+	}
+
 
 	@GetMapping("/artie/sensor/webcam/start")
 	@ResponseBody
@@ -67,5 +74,12 @@ public class WebcamController implements ArtieClientSensor {
 	public List<SensorObject> getSensorData(){
 		return this.webcamService.getSensorData();
 	}
+	
+	@GetMapping("/artie/sensor/webcam/sendSensorData")
+	@ResponseBody
+	public void sendSensorData() {
+		this.webcamService.sendSensorData();		
+	}
+
 	
 }
