@@ -1,6 +1,7 @@
 package artie.sensor.webcam.services;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -8,6 +9,7 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -25,14 +27,24 @@ public class WebcamService extends ArtieClientSensorImpl {
 	private Webcam webcam;
 	private boolean started = false;
 	
+	@Value("${artie.sensor.webcam.name}")
+	private String paramName;
+	
+	@Value("${artie.sensor.webcam.version}")
+	private String paramVersion;
+	
+	@Value("${artie.sensor.webcam.author}")
+	private String paramAuthor;
+
+	
 	
 	/**
 	 * About the sensor information
 	 */
 	private void sensorInformation(){
-		this.name = "Webcam Sensor";
-		this.version = "0.1.0";
-		this.author = "Luis-Eduardo Imbernón";
+		this.name = this.paramName;
+		this.version = this.paramVersion;
+		this.author = this.paramVersion;
 	}
 	
 	@PostConstruct
@@ -45,10 +57,7 @@ public class WebcamService extends ArtieClientSensorImpl {
 	 * @return
 	 */
 	public List<SensorObject> getSensorData(){
-		List<SensorObject> sensorData = new ArrayList<SensorObject>();
-		Collections.copy(sensorData, this.sensorData);
-		this.sensorData.clear();
-		return sensorData;
+		return this.sensorData;
 	}
 	
 	@Override
@@ -69,7 +78,16 @@ public class WebcamService extends ArtieClientSensorImpl {
 		if(this.started){
 			BufferedImage image = this.webcam.getImage();
 			BufferedImageSerializable imageSerializable = new BufferedImageSerializable(image);
-			this.sensorData.add(new SensorObject(new Date(), imageSerializable));
+			String strBis = "";
+			
+			try {
+				strBis = imageSerializable.imageSerialization();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			this.sensorData.add(new SensorObject(new Date(), strBis, "webcam"));
 		}
 	}
 }
