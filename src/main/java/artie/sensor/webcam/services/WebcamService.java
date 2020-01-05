@@ -2,13 +2,13 @@ package artie.sensor.webcam.services;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -26,6 +26,7 @@ public class WebcamService extends ArtieClientSensorImpl {
 	//Attributes
 	private Webcam webcam;
 	private boolean started = false;
+	private Logger logger = LoggerFactory.getLogger(WebcamService.class);
 	
 	@Value("${artie.sensor.webcam.name}")
 	private String paramName;
@@ -50,6 +51,7 @@ public class WebcamService extends ArtieClientSensorImpl {
 	@PostConstruct
 	public void init(){
 		this.sensorInformation();
+		this.isAlive = true;
 	}
 	
 	/**
@@ -83,8 +85,7 @@ public class WebcamService extends ArtieClientSensorImpl {
 			try {
 				strBis = imageSerializable.imageSerialization();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				this.logger.error(e.getMessage());
 			}
 
 			this.sensorData.add(new SensorObject(new Date(), strBis, "webcam"));

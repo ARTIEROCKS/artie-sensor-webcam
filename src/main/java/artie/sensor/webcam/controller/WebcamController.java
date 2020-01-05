@@ -39,6 +39,12 @@ public class WebcamController implements ArtieClientSensor {
 		return this.webcamService.getAuthor();
 	}
 	
+	@GetMapping("/artie/sensor/webcam/isAlive")
+	@ResponseBody
+	public boolean getIsAlive() {
+		return this.webcamService.getIsAlive();
+	}
+	
 	@GetMapping("/artie/sensor/webcam/getConfiguration")
 	@ResponseBody
 	public Map<String, String> getConfiguration(){
