@@ -88,7 +88,7 @@ public class WebcamService extends ArtieClientSensorImpl {
 				this.logger.error(e.getMessage());
 			}
 
-			this.sensorData.add(new SensorObject(new Date(), strBis, "webcam"));
+			this.addSensorObject(new SensorObject(new Date(), strBis, "webcam"));
 		}
 	}
 }
